@@ -1,0 +1,6 @@
+{
+  "name": "cratebox-docs",
+  "version": 2,
+  "alias": "cratebox.io",
+  "regions": ["cdg1", "bru"]
+}

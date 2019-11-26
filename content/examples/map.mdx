@@ -1,0 +1,80 @@
+---
+title: "Map Store"
+description: "A state management library suitable for React, Vue, Svelte and any other UI framework you'd like to use it with."
+---
+
+
+<p align="center">
+  <img src="https://github.com/alexvcasillas/cratebox/blob/master/logo/cratebox-logo.png?raw=true" width="500" height="200"></img>
+</p>
+
+The following example shows how to create a simple todo list of top-level type `Map<string, Todo>` to keep some task data within it, make use of views and actions to dispatch changes to the state.
+
+```typescript
+import { createStore } from "cratebox";
+import uuid from "uuid/v4";
+
+/**
+ * Define this store's shape!
+ */
+type Todo = {
+  title?: string,
+  done?: boolean,
+}
+
+type TodoState = Map<string, Todo>;
+
+/**
+ * User state object that matches the User State Type
+ */
+const todoState: TodoState = new Map<string, Todo>();
+
+/**
+ * Define User Views
+ *  – it's like computed properties!
+ */
+type TodoViews = {
+  done: Todo[],
+}
+
+/**
+ * User Views function of state that returns
+ * and object with the user views type
+ */
+const todoViews = (state: TodoState): TodoViews => ({
+  done: Array.from(state.entries())
+    .filter(([key, todo]) => todo.done)
+    .map(([key, todo]) => todo),
+});
+
+
+/**
+ * Define User Actions
+ *  – You'll be able to change the state within this actions only!
+ */
+type TodoActions = {
+  addTodo(todo: Todo): void;
+  removeTodo(id: string): void;
+}
+
+/**
+ * User Actions function of state that returns
+ * an object with the user actions type
+ */
+const todoActions = (state: TodoState): TodoActions => ({
+  addTodo(todo: Todo) {
+    state.set(uuid(), todo);
+  },
+  removeTodo(id: string) {
+    state.delete(id);
+  },
+});
+
+/**
+ * Create the store
+ * and then export it to use it somewhere else!
+ */
+const todoStore = createStore(todoState, todoViews, todoActions);
+
+export default todoStore;
+```
