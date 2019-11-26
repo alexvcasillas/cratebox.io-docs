@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Cratebox – State management library`,
-    name: `Code Bushi`,
-    siteUrl: `https://cratebox.oio`,
+    name: `Alex Casillas`,
+    siteUrl: `https://cratebox.io`,
     description: `A state management library suitable for React, Vue, Svelte and any other UI framework you'd like to use it with.`,
     social: [
       {
